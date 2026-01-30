@@ -1,3 +1,5 @@
+from odoo import models, fields
+
 class ISPInvoiceImportWizard(models.TransientModel):
     _name = 'isp.invoice.import.wizard'
 

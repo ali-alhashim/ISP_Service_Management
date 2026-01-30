@@ -1,3 +1,5 @@
+from odoo import models, fields
+
 class ISPPaymentRequestWizard(models.TransientModel):
     _name = 'isp.payment.request.wizard'
 
