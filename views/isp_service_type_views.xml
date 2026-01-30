@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ISP Service Type Tree View -->
+        <record id="view_isp_service_type_tree" model="ir.ui.view">
+            <field name="name">isp.service.type.tree</field>
+            <field name="model">isp.service.type</field>
+            <field name="arch" type="xml">
+                <tree string="ISP Service Types">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- ISP Service Type Form View -->
+        <record id="view_isp_service_type_form" model="ir.ui.view">
+            <field name="name">isp.service.type.form</field>
+            <field name="model">isp.service.type</field>
+            <field name="arch" type="xml">
+                <form string="ISP Service Type">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

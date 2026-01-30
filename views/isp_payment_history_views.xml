@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Payment History Tree View -->
+        <record id="view_isp_payment_history_tree" model="ir.ui.view">
+            <field name="name">isp.payment.history.tree</field>
+            <field name="model">isp.payment.history</field>
+            <field name="arch" type="xml">
+                <tree string="ISP Payment History">
+                    <field name="service_id"/>
+                    <field name="department_id"/>
+                    <field name="period_name"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="amount"/>
+                    <field name="invoice_file" widget="binary"/>
+                    <field name="tt_document" widget="binary"/>
+                    <field name="created_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Payment History Form View -->
+        <record id="view_isp_payment_history_form" model="ir.ui.view">
+            <field name="name">isp.payment.history.form</field>
+            <field name="model">isp.payment.history</field>
+            <field name="arch" type="xml">
+                <form string="ISP Payment History">
+                    <sheet>
+                        <group>
+                            <field name="service_id"/>
+                            <field name="department_id"/>
+                            <field name="period_name"/>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                        <group>
+                            <field name="amount"/>
+                            <field name="invoice_file" widget="binary"/>
+                            <field name="tt_document" widget="binary"/>
+                            <field name="created_date"/>
+                        </group>
+                        <notebook>
+                            <page string="Notes">
+                                <field name="service_id.notes" readonly="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Graph View: Payment History by Department -->
+        <record id="view_isp_payment_history_graph" model="ir.ui.view">
+            <field name="name">isp.payment.history.graph</field>
+            <field name="model">isp.payment.history</field>
+            <field name="arch" type="xml">
+                <graph string="Payments by Department" type="line">
+                    <field name="amount" type="measure"/>
+                    <field name="department_id" type="row"/>
+                    <field name="date_from" type="col"/>
+                </graph>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ISP Provider Tree View -->
+        <record id="view_isp_provider_tree" model="ir.ui.view">
+            <field name="name">isp.provider.tree</field>
+            <field name="model">isp.provider</field>
+            <field name="arch" type="xml">
+                <tree string="ISP Providers">
+                    <field name="name"/>
+                    <field name="notes"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- ISP Provider Form View -->
+        <record id="view_isp_provider_form" model="ir.ui.view">
+            <field name="name">isp.provider.form</field>
+            <field name="model">isp.provider</field>
+            <field name="arch" type="xml">
+                <form string="ISP Provider">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="notes"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

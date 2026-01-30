@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ISP Service Tree View -->
+        <record id="view_isp_service_tree" model="ir.ui.view">
+            <field name="name">isp.service.tree</field>
+            <field name="model">isp.service</field>
+            <field name="arch" type="xml">
+                <tree string="ISP Services">
+                    <field name="name"/>
+                    <field name="service_provider_id"/>
+                    <field name="service_type_id"/>
+                    <field name="line_number"/>
+                    <field name="billing_account_number"/>
+                    <field name="status"/>
+                    <field name="assign_employee_id"/>
+                    <field name="assign_department_id"/>
+                    <field name="remaining_balance"/>
+                    <field name="monthly_fee"/>
+                    <field name="branch_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- ISP Service Form View -->
+        <record id="view_isp_service_form" model="ir.ui.view">
+            <field name="name">isp.service.form</field>
+            <field name="model">isp.service</field>
+            <field name="arch" type="xml">
+                <form string="ISP Service">
+                    <sheet>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="service_provider_id"/>
+                            <field name="service_type_id"/>
+                            <field name="line_number"/>
+                            <field name="billing_account_number"/>
+                            <field name="serial_number"/>
+                            <field name="status"/>
+                        </group>
+
+                        <group>
+                            <field name="assign_employee_id"/>
+                            <field name="assign_department_id"/>
+                            <field name="branch_id"/>
+                            <field name="location_partner_id" widget="map"/>
+                        </group>
+
+                        <group>
+                            <field name="service_package"/>
+                            <field name="bandwidth"/>
+                            <field name="usage_limit"/>
+                            <field name="current_usage"/>
+                            <field name="remaining_balance" readonly="1"/>
+                        </group>
+
+                        <group>
+                            <field name="active_date"/>
+                            <field name="monthly_fee"/>
+                            <field name="currency_id"/>
+                            <field name="recurring_day"/>
+                        </group>
+
+                        <notebook>
+                            <page string="Payment History">
+                                <field name="payment_ids" context="{'default_service_id': active_id}">
+                                    <tree>
+                                        <field name="period_name"/>
+                                        <field name="date_from"/>
+                                        <field name="date_to"/>
+                                        <field name="amount"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Notes">
+                                <field name="notes"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                    <!-- Smart Buttons -->
+                    <header>
+                        <button name="%(isp_payment_request_wizard_action)d" type="action" string="Generate Payment Request" class="oe_highlight"/>
+                        <button name="%(isp_invoice_import_wizard_action)d" type="action" string="Import Invoice"/>
+                    </header>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>
