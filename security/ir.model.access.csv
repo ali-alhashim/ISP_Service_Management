@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_isp_service_user,isp.service user,model_isp_service,group_isp_user,1,1,1,0
+access_isp_service_manager,isp.service manager,model_isp_service,group_isp_manager,1,1,1,1
+access_isp_payment_history_user,isp.payment.history user,model_isp_payment_history,group_isp_user,1,1,1,0
+access_isp_payment_history_manager,isp.payment.history manager,model_isp_payment_history,group_isp_manager,1,1,1,1
+access_isp_provider_user,isp.provider user,model_isp_provider,group_isp_user,1,0,0,0
+access_isp_provider_manager,isp.provider manager,model_isp_provider,group_isp_manager,1,1,1,1
+access_isp_service_type_user,isp.service.type user,model_isp_service_type,group_isp_user,1,0,0,0
+access_isp_service_type_manager,isp.service.type manager,model_isp_service_type,group_isp_manager,1,1,1,1
+access_isp_invoice_import_wizard_user,isp.invoice.import wizard user,model_isp_invoice_import_wizard,group_isp_user,1,1,1,0
+access_isp_invoice_import_wizard_manager,isp.invoice.import wizard manager,model_isp_invoice_import_wizard,group_isp_manager,1,1,1,1
+access_isp_payment_request_wizard_user,isp.payment.request wizard user,model_isp_payment_request_wizard,group_isp_user,1,1,1,0
+access_isp_payment_request_wizard_manager,isp.payment.request wizard manager,model_isp_payment_request_wizard,group_isp_manager,1,1,1,1

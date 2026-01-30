@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Pre-seed ISP Service Types -->
+        <record id="isp_service_type_fiber" model="isp.service.type">
+            <field name="name">Fiber</field>
+        </record>
+        <record id="isp_service_type_mobile" model="isp.service.type">
+            <field name="name">Mobile</field>
+        </record>
+        <record id="isp_service_type_5G" model="isp.service.type">
+            <field name="name">5G</field>
+        </record>
+         <record id="isp_service_type_4G" model="isp.service.type">
+            <field name="name">4G</field>
+        </record>
+         <record id="isp_service_type_voice" model="isp.service.type">
+            <field name="name">voice</field>
+        </record>
+         <record id="isp_service_type_lindline" model="isp.service.type">
+            <field name="name">Landline</field>
+        </record>
+        <record id="isp_service_type_mpls" model="isp.service.type">
+            <field name="name">MPLS</field>
+        </record>
+        <record id="isp_service_type_vpn" model="isp.service.type">
+            <field name="name">VPN</field>
+        </record>
+        <record id="isp_service_type_dsl" model="isp.service.type">
+            <field name="name">DSL</field>
+        </record>
+        <record id="isp_service_type_satellite" model="isp.service.type">
+            <field name="name">Satellite</field>
+        </record>
+    </data>
+</odoo>

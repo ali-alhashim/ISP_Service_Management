@@ -1,0 +1,21 @@
+{
+'name': 'ISP Service Management',
+'version': '19.0.1.0.0',
+'category': 'Services',
+'summary': 'Manage ISP services, invoices, and payment requests',
+'author': 'Ali Musa Alhashim',
+'license': 'LGPL-3',
+'depends': ['base', 'hr', 'mail', 'web'],
+'data': [
+'security/security.xml',
+'security/ir.model.access.csv',
+'data/service_type_data.xml',
+'views/isp_service_views.xml',
+'views/isp_payment_history_views.xml',
+'views/isp_provider_views.xml',
+'views/isp_service_type_views.xml',
+'views/wizard_views.xml',
+'views/menu.xml',
+],
+'application': True,
+}
