@@ -2,14 +2,14 @@
 <odoo>
     <data>
 
-        <!-- ISP Service Type Tree View -->
-        <record id="view_isp_service_type_tree" model="ir.ui.view">
-            <field name="name">isp.service.type.tree</field>
+        <!-- ISP Service Type list View -->
+        <record id="view_isp_service_type_list" model="ir.ui.view">
+            <field name="name">isp.service.type.list</field>
             <field name="model">isp.service.type</field>
             <field name="arch" type="xml">
-                <tree string="ISP Service Types">
+                <list string="ISP Service Types">
                     <field name="name"/>
-                </tree>
+                </list>
             </field>
         </record>
 

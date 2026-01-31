@@ -2,12 +2,12 @@
 <odoo>
     <data>
 
-        <!-- ISP Service Tree View -->
-        <record id="view_isp_service_tree" model="ir.ui.view">
-            <field name="name">isp.service.tree</field>
+        <!-- ISP Service list View -->
+        <record id="view_isp_service_list" model="ir.ui.view">
+            <field name="name">isp.service.list</field>
             <field name="model">isp.service</field>
             <field name="arch" type="xml">
-                <tree string="ISP Services">
+                <list string="ISP Services">
                     <field name="name"/>
                     <field name="service_provider_id"/>
                     <field name="service_type_id"/>
@@ -19,7 +19,7 @@
                     <field name="remaining_balance"/>
                     <field name="monthly_fee"/>
                     <field name="branch_id"/>
-                </tree>
+                </list>
             </field>
         </record>
 
@@ -64,13 +64,13 @@
 
                         <notebook>
                             <page string="Payment History">
-                                <field name="payment_ids" context="{'default_service_id': active_id}">
-                                    <tree>
+                                <field name="payment_ids" context="{'default_service_id': id}">
+                                    <list>
                                         <field name="period_name"/>
                                         <field name="date_from"/>
                                         <field name="date_to"/>
                                         <field name="amount"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
                             <page string="Notes">
@@ -81,8 +81,14 @@
 
                     <!-- Smart Buttons -->
                     <header>
-                        <button name="%(isp_payment_request_wizard_action)d" type="action" string="Generate Payment Request" class="oe_highlight"/>
-                        <button name="%(isp_invoice_import_wizard_action)d" type="action" string="Import Invoice"/>
+                        <button name="%(action_payment_request_wizard)d"
+                                type="action"
+                                string="Generate Payment Request"
+                                class="oe_highlight"/>
+
+                        <button name="%(action_invoice_import_wizard)d"
+                                type="action"
+                                string="Import Invoice"/>
                     </header>
                 </form>
             </field>

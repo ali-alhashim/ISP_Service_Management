@@ -2,6 +2,7 @@ from odoo import models, fields
 
 class ISPInvoiceImportWizard(models.TransientModel):
     _name = 'isp.invoice.import.wizard'
+    _description = "ISP Invoice Import Wizard"
 
 
     provider_type = fields.Selection([

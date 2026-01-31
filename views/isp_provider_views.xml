@@ -2,15 +2,15 @@
 <odoo>
     <data>
 
-        <!-- ISP Provider Tree View -->
-        <record id="view_isp_provider_tree" model="ir.ui.view">
-            <field name="name">isp.provider.tree</field>
+        <!-- ISP Provider list View -->
+        <record id="view_isp_provider_list" model="ir.ui.view">
+            <field name="name">isp.provider.list</field>
             <field name="model">isp.provider</field>
             <field name="arch" type="xml">
-                <tree string="ISP Providers">
+                <list string="ISP Providers">
                     <field name="name"/>
                     <field name="notes"/>
-                </tree>
+                </list>
             </field>
         </record>
 

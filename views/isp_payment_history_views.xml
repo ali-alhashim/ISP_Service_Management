@@ -2,12 +2,12 @@
 <odoo>
     <data>
 
-        <!-- Payment History Tree View -->
-        <record id="view_isp_payment_history_tree" model="ir.ui.view">
-            <field name="name">isp.payment.history.tree</field>
+        <!-- Payment History list View -->
+        <record id="view_isp_payment_history_list" model="ir.ui.view">
+            <field name="name">isp.payment.history.list</field>
             <field name="model">isp.payment.history</field>
             <field name="arch" type="xml">
-                <tree string="ISP Payment History">
+                <list string="ISP Payment History">
                     <field name="service_id"/>
                     <field name="department_id"/>
                     <field name="period_name"/>
@@ -17,7 +17,7 @@
                     <field name="invoice_file" widget="binary"/>
                     <field name="tt_document" widget="binary"/>
                     <field name="created_date"/>
-                </tree>
+                </list>
             </field>
         </record>
 
@@ -43,7 +43,7 @@
                         </group>
                         <notebook>
                             <page string="Notes">
-                                <field name="service_id.notes" readonly="1"/>
+                                 <field name="notes" readonly="1"/>
                             </page>
                         </notebook>
                     </sheet>

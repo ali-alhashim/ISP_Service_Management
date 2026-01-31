@@ -22,7 +22,7 @@ class ISPService(models.Model):
 
     assign_employee_id = fields.Many2one('hr.employee')
     assign_department_id = fields.Many2one('hr.department')
-    branch_id = fields.Many2one('res.branch')
+    branch_id = fields.Many2one('res.company')
     location_partner_id = fields.Many2one('res.partner')
     service_package = fields.Char()
     bandwidth = fields.Char()

@@ -7,6 +7,7 @@ class ISPPaymentHistory(models.Model):
 
 
     service_id = fields.Many2one('isp.service', required=True, ondelete='cascade')
+    notes = fields.Text(related='service_id.notes', string='Service Notes', readonly=True)
     department_id = fields.Many2one('hr.department', compute='_compute_department', store=True)
 
 
