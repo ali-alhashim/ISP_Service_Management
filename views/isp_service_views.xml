@@ -7,7 +7,26 @@
             <field name="name">isp.service.list</field>
             <field name="model">isp.service</field>
             <field name="arch" type="xml">
+                
                 <list string="ISP Services">
+
+  <!-- Smart Buttons -->
+                    <header>
+                        <button name="%(action_payment_request_wizard)d"
+                                type="action"
+                                display="always"
+                                string="Generate Payment Request"
+                                class="oe_highlight"/>
+
+                        <button name="%(action_invoice_import_wizard)d"
+                                type="action"
+                                display="always"
+                                string="Import Invoice"/>
+                    </header>
+
+
+
+
                     <field name="name"/>
                     <field name="service_provider_id"/>
                     <field name="service_type_id"/>
@@ -20,6 +39,10 @@
                     <field name="monthly_fee"/>
                     <field name="branch_id"/>
                 </list>
+
+
+                 
+
             </field>
         </record>
 
@@ -79,17 +102,7 @@
                         </notebook>
                     </sheet>
 
-                    <!-- Smart Buttons -->
-                    <header>
-                        <button name="%(action_payment_request_wizard)d"
-                                type="action"
-                                string="Generate Payment Request"
-                                class="oe_highlight"/>
-
-                        <button name="%(action_invoice_import_wizard)d"
-                                type="action"
-                                string="Import Invoice"/>
-                    </header>
+                 
                 </form>
             </field>
         </record>
