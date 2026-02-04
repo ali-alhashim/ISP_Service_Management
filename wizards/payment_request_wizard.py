@@ -2,7 +2,7 @@ from odoo import models, fields
 
 class ISPPaymentRequestWizard(models.TransientModel):
     _name = 'isp.payment.request.wizard'
-
+    _description = 'ISP Payment Request Wizard'
 
     department_id = fields.Many2one('hr.department', string="Department", tracking=True)
     employee_id = fields.Many2one('hr.employee', string="Assigned Employee", tracking=True)

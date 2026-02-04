@@ -9,3 +9,5 @@ access_isp_service_type_user,isp.service.type user,model_isp_service_type,group_
 access_isp_service_type_manager,isp.service.type manager,model_isp_service_type,group_isp_manager,1,1,1,1
 access_invoice_import_wizard,isp.invoice.import.wizard,model_isp_invoice_import_wizard,group_isp_manager,1,1,1,1
 access_payment_request_wizard,isp.payment.request.wizard,model_isp_payment_request_wizard,group_isp_manager,1,1,1,1
+access_isp_bill_user,isp.bill,model_isp_bill,group_isp_user,1,1,1,0
+access_isp_bill_manager,isp.bill manager,model_isp_bill,group_isp_manager,1,1,1,1

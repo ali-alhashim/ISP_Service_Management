@@ -14,6 +14,7 @@
                             <field name="period_name"/>
                             <field name="date_from"/>
                             <field name="date_to"/>
+                            <field name="total_days"/>
                             <field name="file_data" widget="binary"/>
                         </group>
                         <footer>
