@@ -10,19 +10,7 @@
                 
                 <list string="ISP Services">
 
-  <!-- Smart Buttons -->
-                    <header>
-                        <button name="%(action_payment_request_wizard)d"
-                                type="action"
-                                display="always"
-                                string="Generate Payment Request"
-                                class="oe_highlight"/>
 
-                        <button name="%(action_invoice_import_wizard)d"
-                                type="action"
-                                display="always"
-                                string="Import Invoice"/>
-                    </header>
 
 
 
