@@ -10,12 +10,13 @@
                 <form string="Import ISP Invoices">
                     <sheet>
                         <group>
-                            <field name="provider_type"/>
-                            <field name="period_name"/>
+                            <field name="provider_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="period_name" placeholder="e.g. Jan 2026"/>
                             <field name="date_from"/>
                             <field name="date_to"/>
                             <field name="total_days"/>
-                            <field name="file_data" widget="binary"/>
+                            <field name="file_data" widget="binary" filename="file_name"/>
+                            <field name="file_name" invisible="1"/>
                         </group>
                         <footer>
                             <button string="Import" type="object" name="action_import" class="btn-primary"/>
