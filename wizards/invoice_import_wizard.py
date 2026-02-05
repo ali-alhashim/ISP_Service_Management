@@ -5,6 +5,7 @@ import base64
 import pdfplumber
 import zipfile
 import csv
+import re
 
 class ISPInvoiceImportWizard(models.TransientModel):
     _name = 'isp.invoice.import.wizard'
@@ -54,57 +55,62 @@ class ISPInvoiceImportWizard(models.TransientModel):
         else:
             raise UserError("Unsupported file type. Please upload a PDF, ZIP, or CSV file.")
         
+    
     def _import_from_pdf(self):
         print("Importing from PDF...")
-        
-        # first the invoice maybe in arabic or english so we need to detect the language
-        # mobily invoices are in arabic and one pdf has all the services so
-        # we take the line_number from isp.service and search for it in the pdf text
-        # if we find it we move left side the 6 value is the due amount for that service
-        # 1. Decode and wrap the file data
+        self.ensure_one()
         try:
             file_bytes = base64.b64decode(self.file_data)
             pdf_file = io.BytesIO(file_bytes)
         except Exception:
             raise UserError("Could not decode the PDF file.")
 
-        # 2. Create the Master Bill record
         bill = self._create_isp_bill()
 
-        # 3. Process the PDF
         with pdfplumber.open(pdf_file) as pdf:
             full_text = ""
             for page in pdf.pages:
                 full_text += page.extract_text() + "\n"
             
-            # Search for services belonging to this provider
+            lines = full_text.splitlines()
             services = self.env['isp.service'].search([('service_provider_id', '=', self.provider_id.id)])
             
             for service in services:
-                if service.line_number and service.line_number in full_text:
-                    # find the line containing the line_number
-                    for line in full_text.splitlines():
-                        if service.line_number in line:
-                            parts = line.split()
-                            try:
-                                # Logic: Move left 6 positions to find amount
-                                # We also handle the Arabic/English comma decimal separator
-                                raw_amount = parts[parts.index(service.line_number) - 6]
-                                due_amount = float(raw_amount.replace(',', ''))
-                                
-                                # 4. Create the Bill Line record in the database
-                                self.env['isp.bill.line'].create({
-                                    'bill_id': bill.id,
-                                    'service_id': service.id,
-                                    'amount': due_amount,
-                                })
-                                print(f"Success: {service.line_number} -> {due_amount}")
+                if not service.line_number:
+                    continue
+                
+                for i, line in enumerate(lines):
+                    # We look for the exact service number line
+                    if service.line_number.strip() == line.strip():
+                        print(f"Target Number Found: {line}")
+                        
+                        # We check the VERY NEXT line for the amounts
+                        if i + 1 < len(lines):
+                            next_line = lines[i+1]
+                            print(f"Data Line Found: {next_line}")
                             
-                            except (ValueError, IndexError):
-                                print(f"Could not extract due amount for {service.line_number}")
-                            break
-        
-        return bill # Return the bill so action_import can open it
+                            parts = next_line.split()
+                            # Based on your finding: "0.00 138.00 ..." 
+                            # 138.00 is at index 1 (the 2nd value)
+                            try:
+                                if len(parts) >= 2:
+                                    raw_amount = parts[1] # Take 2nd value
+                                    
+                                    # Clean and convert to float
+                                    # Remove any non-numeric characters except dots
+                                    clean_amount = "".join(c for c in raw_amount if c.isdigit() or c == '.')
+                                    due_amount = float(clean_amount)
+
+                                    self.env['isp.bill.line'].create({
+                                        'bill_id': bill.id,
+                                        'service_id': service.id,
+                                        'amount': due_amount,
+                                    })
+                                    print(f"Successfully Imported: {service.line_number} -> {due_amount}")
+                            except (ValueError, IndexError) as e:
+                                print(f"Could not parse amount on next line for {service.line_number}: {e}")
+                        break
+        return bill  
         
 
 
