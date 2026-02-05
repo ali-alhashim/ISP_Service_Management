@@ -1,5 +1,11 @@
 from odoo import models, fields, api
 from odoo.exceptions import UserError
+import io
+import base64
+import pdfplumber
+import zipfile
+import csv
+
 class ISPInvoiceImportWizard(models.TransientModel):
     _name = 'isp.invoice.import.wizard'
     _description = "ISP Invoice Import Wizard"
@@ -49,13 +55,66 @@ class ISPInvoiceImportWizard(models.TransientModel):
             raise UserError("Unsupported file type. Please upload a PDF, ZIP, or CSV file.")
         
     def _import_from_pdf(self):
-        pass
+        print("Importing from PDF...")
+        
+        # first the invoice maybe in arabic or english so we need to detect the language
+        # mobily invoices are in arabic and one pdf has all the services so
+        # we take the line_number from isp.service and search for it in the pdf text
+        # if we find it we move left side the 6 value is the due amount for that service
+        # 1. Decode and wrap the file data
+        try:
+            file_bytes = base64.b64decode(self.file_data)
+            pdf_file = io.BytesIO(file_bytes)
+        except Exception:
+            raise UserError("Could not decode the PDF file.")
+
+        # 2. Create the Master Bill record
+        bill = self._create_isp_bill()
+
+        # 3. Process the PDF
+        with pdfplumber.open(pdf_file) as pdf:
+            full_text = ""
+            for page in pdf.pages:
+                full_text += page.extract_text() + "\n"
+            
+            # Search for services belonging to this provider
+            services = self.env['isp.service'].search([('service_provider_id', '=', self.provider_id.id)])
+            
+            for service in services:
+                if service.line_number and service.line_number in full_text:
+                    # find the line containing the line_number
+                    for line in full_text.splitlines():
+                        if service.line_number in line:
+                            parts = line.split()
+                            try:
+                                # Logic: Move left 6 positions to find amount
+                                # We also handle the Arabic/English comma decimal separator
+                                raw_amount = parts[parts.index(service.line_number) - 6]
+                                due_amount = float(raw_amount.replace(',', ''))
+                                
+                                # 4. Create the Bill Line record in the database
+                                self.env['isp.bill.line'].create({
+                                    'bill_id': bill.id,
+                                    'service_id': service.id,
+                                    'amount': due_amount,
+                                })
+                                print(f"Success: {service.line_number} -> {due_amount}")
+                            
+                            except (ValueError, IndexError):
+                                print(f"Could not extract due amount for {service.line_number}")
+                            break
+        
+        return bill # Return the bill so action_import can open it
+        
+
 
     def _import_from_zip(self):
-        pass
+        print("Importing from ZIP...")
+        
 
     def _import_from_csv(self):
-        pass
+        print("Importing from CSV...")
+        
 
 
 

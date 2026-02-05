@@ -8,9 +8,10 @@ class ISPBill(models.Model):
 
     name = fields.Char(string="Bill Reference", required=True, copy=False, readonly=True, default='New')
     provider_id = fields.Many2one('isp.provider', string="Service Provider", required=True)
-    
+    period_name = fields.Char(string="Billing Period")
     date_from = fields.Date(string="Billing Period Start", required=True)
     date_to = fields.Date(string="Billing Period End", required=True)
+    total_days = fields.Integer(string="Total Days")
     
     state = fields.Selection([
         ('draft', 'Draft'),
