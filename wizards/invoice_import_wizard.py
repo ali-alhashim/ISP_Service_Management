@@ -67,6 +67,8 @@ class ISPInvoiceImportWizard(models.TransientModel):
 
         bill = self._create_isp_bill()
 
+        bill.name = self.file_name.replace('.pdf', '')
+
         with pdfplumber.open(pdf_file) as pdf:
             full_text = ""
             for page in pdf.pages:
