@@ -117,7 +117,71 @@ class ISPInvoiceImportWizard(models.TransientModel):
 
 
     def _import_from_zip(self):
+        import os  # Ensure os is imported for path handling
         print("Importing from ZIP...")
+        self.ensure_one()
+        bill = self._create_isp_bill()
+        bill.name = self.file_name.replace('.zip', '')
+
+        try:
+            file_bytes = base64.b64decode(self.file_data)
+            zip_buffer = io.BytesIO(file_bytes)
+        except Exception:
+            raise UserError("Could not decode the ZIP file.")
+
+        with zipfile.ZipFile(zip_buffer, 'r') as z:
+            for filename in z.namelist():
+                # Process only CSV files and ignore MacOS system files
+                if filename.endswith('.csv') and not filename.startswith('__MACOSX'):
+                    try:
+                        # Use os.path.basename to get just the filename if it's inside a folder
+                        base_name = os.path.basename(filename)
+                        # Removing 'ACT' and splitting to get the billing account number
+                        billing_acc_part = base_name.split('ACT')[-1].split('_')[0]
+                        print(f"Processing file: {filename} for billing account: {billing_acc_part}")
+                    except Exception:
+                        continue
+                    
+                    # 2. Read the CSV content
+                    with z.open(filename) as csv_file:
+                        # FIX: Using 'latin-1' and errors='replace' to prevent UnicodeDecodeError
+                        content = io.TextIOWrapper(csv_file, encoding='latin-1', errors='replace')
+                        try:
+                            reader = list(csv.reader(content))
+                        except Exception as e:
+                            print(f"Error reading CSV rows in {filename}: {e}")
+                            continue
+
+                        # 3. Get Amount from Row 14, Column 1 (Index 13, 0)
+                        if len(reader) >= 14:
+                            raw_amount = reader[13][0] # Row 14, Col 1
+                            try:
+                                # Clean numeric data (remove commas or currency symbols)
+                                clean_amount = re.sub(r'[^\d.]', '', raw_amount)
+                                due_amount = float(clean_amount) if clean_amount else 0.0
+                            except ValueError:
+                                due_amount = 0.0
+
+                            # 4. Find services matching this Billing Account Number
+                            services = self.env['isp.service'].search([
+                                    ('billing_account_number', '=', billing_acc_part),
+                                    ('service_provider_id', '=', self.provider_id.id)
+                                ])
+
+                            for service in services:
+                                self.env['isp.bill.line'].create({
+                                    'bill_id': bill.id,
+                                    'service_id': service.id,
+                                    'amount': due_amount,
+                                })
+                            print(f"Successfully Imported: {filename} -> {due_amount}")
+                            
+        return bill
+
+
+
+
+
         
 
     def _import_from_csv(self):
