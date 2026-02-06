@@ -7,6 +7,7 @@
             <field name="arch" type="xml">
                 <list string="ISP Bills">
                     <field name="name"/>
+                    <field name="period_name"/>
                     <field name="provider_id"/>
                     <field name="date_from"/>
                     <field name="date_to"/>
@@ -55,6 +56,8 @@
                                 <field name="date_to" readonly="state != 'draft'"/>
                             </group>
                         </group>
+
+
                         <notebook>
                             <page string="Bill Lines">
                                 <field name="line_ids" readonly="state != 'draft'">
@@ -62,11 +65,24 @@
                                         <field name="service_id"/>
                                         <field name="billing_account_number"/>
                                         <field name="line_number"/>
+                                        <field name="service_type_id"/>
+                                        <field name="assign_employee_id"/>
+                                        <field name="branch_id"/>
+                                        <field name="assign_department_id"/>
                                         <field name="amount" sum="Total Amount"/>
                                     </list>
                                 </field>
                             </page>
+
+                            <page string="Statistics Summary">
+                                <group string="Analysis by Service Type">
+                                    <field name="summary_notes" nolabel="1"/>
+                                </group>
+                            </page>
+
                         </notebook>
+
+
                     </sheet>
                 </form>
             </field>
