@@ -30,6 +30,13 @@
             <field name="view_mode">list,form</field> <!-- updated -->
         </record>
 
+        <!-- Payment Requests -->
+        <record id="action_isp_payment_request" model="ir.actions.act_window">
+            <field name="name">ISP Payment Requests</field>
+            <field name="res_model">isp.payment.request</field>
+            <field name="view_mode">list,form</field> <!-- updated -->
+        </record>
+
         <!-- Invoice Import Wizard -->
         <record id="action_invoice_import_wizard" model="ir.actions.act_window">
             <field name="name">Import ISP Invoices</field>
@@ -57,6 +64,8 @@
         <menuitem id="menu_isp_service" name="ISP Services" parent="menu_isp_services" action="action_isp_service" sequence="1"/>
         <menuitem id="menu_isp_providers" name="Providers" parent="menu_isp_services" action="action_isp_provider" sequence="2"/>
         <menuitem id="menu_isp_service_types" name="Service Types" parent="menu_isp_services" action="action_isp_service_type" sequence="3"/>
+        <menuitem id="menu_isp_payment_requests" name="Payment Requests" parent="menu_isp_services" action="action_isp_payment_request" sequence="4"/>
+        
         
         <menuitem id="menu_isp_bill"
                   name="ISP Bills"

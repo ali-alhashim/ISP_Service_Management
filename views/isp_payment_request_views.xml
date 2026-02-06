@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ISP Payment Request list View -->
+        <record id="view_isp_payment_request_list" model="ir.ui.view">
+            <field name="name">isp.payment.request.list</field>
+            <field name="model">isp.payment.request</field>
+            <field name="arch" type="xml">
+                <list string="ISP Payment Requests">
+                   
+                    <field name="beneficiary"/>
+                    <field name="requesting_department"/>
+                    <field name="request_date"/>
+                    <field name="amount"/>
+                    <field name="state"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- ISP Payment Request Form View -->
+        <record id="view_isp_payment_request_form" model="ir.ui.view">
+            <field name="name">isp.payment.request.form</field>
+            <field name="model">isp.payment.request</field>
+            <field name="arch" type="xml">
+                <form string="ISP Payment Request">
+                    <sheet>
+                        <group>
+                            <field name="beneficiary"/>
+                             <field name="requesting_department"/>
+                            <field name="request_date"/>
+                            <field name="description"/>
+                            <field name="amount"/>
+                            <field name="state"/>
+                        </group>
+                       
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

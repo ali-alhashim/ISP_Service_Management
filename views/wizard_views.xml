@@ -44,6 +44,8 @@
                     <sheet>
                         <group>
                             <field name="department_id"/>
+                            <field name="employee_id"/>
+                            <field name="period_name" placeholder="e.g. Jan 2026"/>
                             <field name="date_from"/>
                             <field name="date_to"/>
                         </group>

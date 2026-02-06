@@ -13,3 +13,5 @@ access_isp_bill_user,isp.bill,model_isp_bill,group_isp_user,1,1,1,0
 access_isp_bill_manager,isp.bill manager,model_isp_bill,group_isp_manager,1,1,1,1
 access_isp_bill_line_user,isp.bill.line user,model_isp_bill_line,group_isp_user,1,1,1,0
 access_isp_bill_line_manager,isp.bill.line manager,model_isp_bill_line,group_isp_manager,1,1,1,1
+access_isp_payment_request_user,isp.payment.request user,model_isp_payment_request,group_isp_user,1,1,1,0
+access_isp_payment_request_manager,isp.payment.request manager,model_isp_payment_request,group_isp_manager,1,1,1,1
