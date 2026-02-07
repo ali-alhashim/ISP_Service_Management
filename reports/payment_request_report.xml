@@ -198,7 +198,7 @@
                             <thead>
                                 <tr>
                                     <th style="width: 8%;">Badge#</th>
-                                    <th style="width: 22%;">Employee</th>
+                                    <th style="width: 22%;">Employee/Branch</th>
                                     <th style="width: 12%;">Service</th>
                                     <th style="width: 28%;">Line No.</th>
                                     <th style="width: 18%;">Payment#</th>
@@ -209,7 +209,7 @@
                                 <t t-foreach="o.bill_id.line_ids.sorted(key=lambda l: l.service_type_id.name)" t-as="line">
                                     <tr>
                                         <td style="text-align: center;"><span t-field="line.assign_employee_id.barcode"/></td>
-                                        <td><span t-field="line.assign_employee_id.name"/></td>
+                                        <td><span t-field="line.assign_employee_id.name"/>-<span t-field="line.branch_id.name"/></td>
                                         <td><span t-field="line.service_type_id.name"/></td>
                                         <td><span t-field="line.line_number"/></td>
                                         <td><span t-field="line.billing_account_number"/></td>
