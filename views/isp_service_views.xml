@@ -15,17 +15,19 @@
 
 
 
-                    <field name="name"/>
+                    <field name="name" optional="hide"/>
                     <field name="service_provider_id"/>
                     <field name="service_type_id"/>
                     <field name="line_number"/>
                     <field name="billing_account_number"/>
-                    <field name="status"/>
+                    
                     <field name="assign_employee_id"/>
-                    <field name="assign_department_id"/>
-                    <field name="remaining_balance"/>
-                    <field name="monthly_fee"/>
+                    <field name="assign_department_id" optional="hide"/>
+                    <field name="remaining_balance" optional="hide"/>
+                    
                     <field name="branch_id"/>
+                    <field name="status"/>
+                    <field name="monthly_fee"/>
                 </list>
 
 

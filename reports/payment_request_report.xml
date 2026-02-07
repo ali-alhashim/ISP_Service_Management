@@ -16,34 +16,104 @@
             <t t-foreach="docs" t-as="o">
                 <t t-call="web.external_layout">
                     <style>
-                        /* Force A4 Margins via CSS since the record failed */
+                        /* Force A4 Margins via CSS */
                         .page {
                             margin-top: 10px;
                             padding: 10px;
                             font-family: "Arial", sans-serif;
+                            max-width: 100%;
+                            overflow-x: hidden;
                         }
                         
-                        .pr-header { border-bottom: 2px solid #000; margin-bottom: 15px; }
+                        .pr-header { border-bottom: 2px solid #000; margin-bottom: 15px; padding-bottom: 10px; }
                         .pr-title { font-size: 22px; text-align: center; font-weight: bold; text-decoration: underline; }
                         
-                        /* Table Borders */
-                        .main-table { width: 100%; border-collapse: collapse; }
-                        .main-table td { border: 1px solid black !important; padding: 8px !important; }
+                        /* Main Table Styling */
+                        .main-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+                        .main-table tr { page-break-inside: avoid; }
+                        .main-table td { border: 1px solid #333 !important; padding: 10px !important; font-size: 12px; }
+                        .main-table td:first-child { font-weight: bold; background-color: #f5f5f5; width: 30%; }
                         
-                        /* Approval Boxes Fix */
-                        .approval-row { width: 100%; margin-top: 20px; display: table; table-layout: fixed; }
+                        /* Approval Boxes */
+                        .approval-row { width: 100%; margin-top: 30px; margin-bottom: 30px; display: table; table-layout: fixed; page-break-inside: avoid; }
                         .approval-box { 
                             display: table-cell;
-                            border: 1px solid black; 
+                            border: 1px solid #333; 
                             height: 100px; 
                             text-align: center; 
                             vertical-align: top;
-                            padding: 5px;
+                            padding: 8px;
+                            font-size: 12px;
+                            width: 25%;
                         }
 
-                        /* Attachment Table */
-                        .bill-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-                        .bill-table th, .bill-table td { border: 1px solid black; padding: 5px; font-size: 11px; }
+                        /* Bill Details Table */
+                        .bill-table { 
+                            width: 100%; 
+                            border-collapse: collapse; 
+                            margin-top: 15px;
+                            page-break-inside: avoid;
+                        }
+                        
+                        .bill-table thead {
+                            display: table-header-group;
+                            page-break-after: avoid;
+                        }
+                        
+                        .bill-table thead tr {
+                            background-color: #2c3e50 !important;
+                            color: white !important;
+                        }
+                        
+                        .bill-table thead th {
+                            border: 1px solid #333 !important;
+                            padding: 12px !important;
+                            font-size: 12px !important;
+                            font-weight: bold !important;
+                            text-align: center !important;
+                            word-break: break-word;
+                        }
+                        
+                        .bill-table tbody tr {
+                            page-break-inside: avoid;
+                        }
+                        
+                        .bill-table tbody td {
+                            border: 1px solid #ddd !important;
+                            padding: 10px !important;
+                            font-size: 11px !important;
+                            word-wrap: break-word;
+                            word-break: break-word;
+                        }
+                        
+                        .bill-table tbody tr:nth-child(even) {
+                            background-color: #f9f9f9;
+                        }
+                        
+                        .bill-table tfoot tr {
+                            background-color: #ecf0f1 !important;
+                            font-weight: bold !important;
+                        }
+                        
+                        .bill-table tfoot td {
+                            border: 1px solid #333 !important;
+                            padding: 12px !important;
+                            font-size: 12px !important;
+                        }
+                        
+                        /* Text alignment for amounts */
+                        .text-right { text-align: right !important; }
+                        
+                        /* Section Headers */
+                        .section-title {
+                            font-size: 14px;
+                            font-weight: bold;
+                            margin-top: 25px;
+                            margin-bottom: 15px;
+                            text-align: center;
+                            padding: 10px;
+                            border-bottom: 2px solid #2c3e50;
+                        }
                     </style>
 
                     <div class="page">
@@ -56,6 +126,10 @@
                                 </div>
                             </div>
                             <div class="col-4 pr-title">Payment Request</div>
+                           
+
+                          
+
                             <div class="col-4 text-end">
                                 <strong>Date: </strong>
                                 <span t-field="o.request_date" t-options='{"widget": "date", "format": "MMM d, yyyy"}'/>
@@ -80,7 +154,18 @@
                             <tr>
                                 <td><strong>Description</strong></td>
                                 <td style="height: 60px; vertical-align: top;">
+                                    
                                     <span t-field="o.description"/>
+
+                                   
+                                   
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Related Bill</strong></td>
+                                <td>
+                                    <span t-if="o.bill_id" t-field="o.bill_id.name"/>
+                                    <span t-else="">N/A</span>
                                 </td>
                             </tr>
                             <tr>
@@ -100,36 +185,36 @@
 
                         <p style="page-break-before: always;"></p>
 
-                        <h4 class="text-center">Detailed Attachment: Bill Lines</h4>
+                        <div class="section-title">Detailed Attachment: Bill Lines</div>
                         <table class="bill-table">
                             <thead>
-                                <tr style="background-color: #eee; font-weight: bold;">
-                                   <th style="width: 10%;">Badge ID</th>
-                                    <th style="width: 25%;">Employee</th>
-                                    <th style="width: 15%;">Service</th>
-                                    <th style="width: 35%;">Line No.</th>
-                                    <th style="width: 20%;">Payment#</th>
-                                    <th style="width: 15%; text-align: right;">Amount</th>
+                                <tr>
+                                    <th style="width: 8%;">Badge#</th>
+                                    <th style="width: 22%;">Employee</th>
+                                    <th style="width: 12%;">Service</th>
+                                    <th style="width: 28%;">Line No.</th>
+                                    <th style="width: 18%;">Payment#</th>
+                                    <th style="width: 12%;">Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <t t-foreach="o.bill_id.line_ids" t-as="line">
+                                <t t-foreach="o.bill_id.line_ids.sorted(key=lambda l: l.service_type_id.name)" t-as="line">
                                     <tr>
-                                       <td><span t-field="line.assign_employee_id.barcode"/></td>
+                                        <td style="text-align: center;"><span t-field="line.assign_employee_id.barcode"/></td>
                                         <td><span t-field="line.assign_employee_id.name"/></td>
                                         <td><span t-field="line.service_type_id.name"/></td>
-                                        <td style="word-wrap: break-word;"><span t-field="line.line_number"/></td>
-                                        <td style="word-wrap: break-word;"><span t-field="line.billing_account_number"/></td>
-                                        <td style="text-align: right;">
+                                        <td><span t-field="line.line_number"/></td>
+                                        <td><span t-field="line.billing_account_number"/></td>
+                                        <td class="text-right">
                                             <span t-field="line.amount" t-options='{"widget": "float", "precision": 2}'/>
                                         </td>
                                     </tr>
                                 </t>
                             </tbody>
                             <tfoot>
-                                <tr style="background-color: #f9f9f9; font-weight: bold;">
-                                    <td colspan="5" style="text-align: right;">Total Amount (SAR)</td>
-                                    <td style="text-align: right;">
+                                <tr>
+                                    <td colspan="5" class="text-right">Total Amount (SAR)</td>
+                                    <td class="text-right">
                                         <span t-field="o.amount" t-options='{"widget": "float", "precision": 2}'/>
                                     </td>
                                 </tr>
