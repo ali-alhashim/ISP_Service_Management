@@ -12,6 +12,7 @@ class PaymentRequest(models.Model):
     # if the user seelct the bill the system will get the amount from the bill bill_id.total_amount
     amount = fields.Float(string='Amount', digits=(16, 2), tracking=True)
 
+    # \n bill_id.summary_notes
     description = fields.Text(string='Description', default='Payment request for ISP services', tracking=True)
     state = fields.Selection([('draft', 'Draft'), ('submitted', 'Submitted'), ('approved', 'Approved'), ('rejected', 'Rejected')], string='Status', default='draft')
     request_date = fields.Date(string='Request Date', default=fields.Date.context_today)
@@ -31,6 +32,12 @@ class PaymentRequest(models.Model):
         # Sync beneficiary if it's set on the bill
             if self.bill_id.provider_id:
                 self.beneficiary = self.bill_id.provider_id
+            # Build description
+            base_text = 'Payment request for ISP services'
+            if self.bill_id.summary_notes:
+                self.description = base_text + '\n' + self.bill_id.summary_notes
+            else:
+                self.description = base_text
 
     
     @api.model_create_multi
