@@ -35,36 +35,7 @@
             <field name="target">new</field>
         </record>
 
-        <!-- ================= Payment Request Wizard ================= -->
-        <record id="view_payment_request_wizard_form" model="ir.ui.view">
-            <field name="name">isp.payment.request.wizard.form</field>
-            <field name="model">isp.payment.request.wizard</field>
-            <field name="arch" type="xml">
-                <form string="Generate Payment Request">
-                    <sheet>
-                        <group>
-                            <field name="department_id"/>
-                            <field name="employee_id"/>
-                            <field name="period_name" placeholder="e.g. Jan 2026"/>
-                            <field name="date_from"/>
-                            <field name="date_to"/>
-                        </group>
-                        <footer>
-                            <button string="Export Excel" type="object" name="action_export_excel" class="btn-primary"/>
-                            <button string="Cancel" class="btn-secondary" special="cancel"/>
-                        </footer>
-                    </sheet>
-                </form>
-            </field>
-        </record>
-
-        <record id="action_payment_request_wizard" model="ir.actions.act_window">
-            <field name="name">Generate Payment Requests</field>
-            <field name="res_model">isp.payment.request.wizard</field>
-            <field name="view_mode">form</field>
-            <field name="view_id" ref="view_payment_request_wizard_form"/>
-            <field name="target">new</field>
-        </record>
+       
 
     </data>
 </odoo>

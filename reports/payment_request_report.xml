@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_payment_request" model="ir.actions.report">
+        <field name="name">Payment Request Form</field>
+        <field name="model">isp.payment.request</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ISP_Service_Management.report_payment_request_template</field>
+        <field name="report_file">ISP_Service_Management.report_payment_request_template</field>
+        <field name="print_report_name">'Payment Request - %s' % (object.id)</field>
+        <field name="binding_model_id" ref="model_isp_payment_request"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_payment_request_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <style>
+                        .pr-header { border-bottom: 2px solid #000; margin-bottom: 15px; }
+                        .ak-logo { font-size: 22px; font-weight: bold; line-height: 1; }
+                        .pr-title { font-size: 22px; text-align: center; font-weight: bold; text-decoration: underline; }
+                        .main-table, .main-table td { border: 1px solid black !important; padding: 8px !important; }
+                        /* Signature boxes - height increased for manual signing */
+                        .approval-box { border: 1px solid black; height: 120px; text-align: center; padding: 5px; }
+                    </style>
+
+                    <div class="page">
+                        <div class="row pr-header">
+
+
+                            <div class="col-4">
+                                <img t-if="res_company.logo" t-att-src="image_data_uri(res_company.logo)" 
+                                    style="max-height: 60px; max-width: 150px;" alt="Logo"/>
+                                
+                                <div style="font-size: 16px; font-weight: bold; margin-top: 5px;">
+                                    <span t-field="res_company.name"/>
+                                </div>
+                                
+                                <div style="font-size: 12px;">
+                                    <span t-field="res_company.street"/>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-4 pr-title">Payment Request</div>
+                            <div class="col-4 text-end">
+                                <strong>Date: </strong> <span t-field="o.request_date" t-options='{"widget": "date", "format": "MMM-d-yyyy"}'/>
+                            </div>
+                        </div>
+
+                        <table class="table main-table mt-2">
+                            <tr>
+                                <td width="30%"><strong>Requesting Department</strong></td>
+                                <td width="70%"><span t-field="o.requesting_department.name"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Beneficiary Name</strong></td>
+                                <td><span t-field="o.beneficiary.name"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Currency: SAR</strong></td>
+                                <td><strong>Amount: <span t-field="o.amount" t-options='{"widget": "float", "precision": 2}'/></strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Description</strong></td>
+                                <td style="height: 60px;"><span t-field="o.description"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Method of Payment</strong></td>
+                                <td>[ ] Cash &#160;&#160; [ ] Check &#160;&#160; [ ] Transfer</td>
+                            </tr>
+                        </table>
+
+                        <div class="row mt-4">
+                            <div class="col-3 approval-box"><strong>Dept. Head</strong><br/><br/><br/>________________</div>
+                            <div class="col-3 approval-box"><strong>Chief Acct.</strong><br/><br/><br/>________________</div>
+                            <div class="col-3 approval-box"><strong>Finance Director</strong><br/><br/><br/>________________</div>
+                            <div class="col-3 approval-box"><strong>CEO</strong><br/><br/><br/>________________</div>
+                        </div>
+
+                        <div class="mt-2" style="font-size: 10px;">V.1.1 | Internal Use only</div>
+
+                        <p style="page-break-after:always;"/>
+                        <h4 class="text-center mt-3">Detailed Attachment: Bill Lines</h4>
+                        <table class="table table-sm table-bordered mt-3">
+                            <thead>
+                                <tr style="background-color: #eee;">
+                                    <th>Employee</th>
+                                    <th>Badge ID</th>
+                                    <th>Service</th>
+                                    <th>Line No.</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.bill_id.line_ids" t-as="line">
+                                    <tr>
+                                        <td><span t-field="line.service_id.assign_employee_id.name"/></td>
+                                        <td><span t-field="line.service_id.assign_employee_id.barcode"/></td>
+                                        <td><span t-field="line.service_id.service_type_id.name"/></td>
+                                        <td><span t-field="line.service_id.line_number"/></td>
+                                        <td class="text-end"><span t-field="line.amount"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

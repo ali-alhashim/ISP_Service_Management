@@ -17,6 +17,7 @@
 'views/isp_service_type_views.xml',
 'views/isp_bill_views.xml',
 'views/isp_payment_request_views.xml',
+'reports/payment_request_report.xml',
 'views/menu.xml',
 ],
 'application': True,

@@ -45,13 +45,7 @@
             <field name="target">new</field>
         </record>
 
-        <!-- Payment Requests Wizard -->
-        <record id="action_payment_request_wizard" model="ir.actions.act_window">
-            <field name="name">Generate Payment Requests</field>
-            <field name="res_model">isp.payment.request.wizard</field>
-            <field name="view_mode">form</field>
-            <field name="target">new</field>
-        </record>
+      
 
         <!-- Menus -->
 
@@ -73,7 +67,7 @@
                   action="action_isp_bill"
                   sequence="10"/>
 
-        <menuitem id="menu_isp_invoice_import" name="Import Invoices" parent="menu_isp_root" action="action_invoice_import_wizard" sequence="3"/>
-        <menuitem id="menu_isp_payment_request" name="Payment Requests" parent="menu_isp_root" action="action_payment_request_wizard" sequence="4"/>
+        <menuitem id="menu_isp_invoice_import" name="Import Bills" parent="menu_isp_root" action="action_invoice_import_wizard" sequence="3"/>
+       
     </data>
 </odoo>

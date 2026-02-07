@@ -8,7 +8,7 @@
             <field name="model">isp.payment.request</field>
             <field name="arch" type="xml">
                 <list string="ISP Payment Requests">
-                   
+                    <field name="bill_id"/>
                     <field name="beneficiary"/>
                     <field name="requesting_department"/>
                     <field name="request_date"/>
@@ -26,6 +26,7 @@
                 <form string="ISP Payment Request">
                     <sheet>
                         <group>
+                            <field name="bill_id"/>
                             <field name="beneficiary"/>
                              <field name="requesting_department"/>
                             <field name="request_date"/>
