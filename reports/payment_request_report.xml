@@ -47,62 +47,70 @@
                             width: 25%;
                         }
 
-                        /* Bill Details Table */
-                        .bill-table { 
+                        /* Bill Details Table - WKHTMLTOPDF FIX */
+                        table.bill-table { 
                             width: 100%; 
                             border-collapse: collapse; 
                             margin-top: 15px;
-                            page-break-inside: avoid;
                         }
                         
-                        .bill-table thead {
+                        table.bill-table thead {
                             display: table-header-group;
-                            page-break-after: avoid;
                         }
                         
-                        .bill-table thead tr {
-                            background-color: #2c3e50 !important;
-                            color: white !important;
+                        table.bill-table tbody {
+                            display: table-row-group;
                         }
                         
-                        .bill-table thead th {
-                            border: 1px solid #333 !important;
-                            padding: 12px !important;
-                            font-size: 12px !important;
-                            font-weight: bold !important;
-                            text-align: center !important;
+                        table.bill-table tfoot {
+                            display: table-footer-group;
+                        }
+                        
+                        table.bill-table thead tr {
+                            background-color: #2c3e50;
+                            color: white;
+                        }
+                        
+                        table.bill-table thead th {
+                            border: 1px solid #333;
+                            padding: 12px;
+                            font-size: 12px;
+                            font-weight: bold;
+                            text-align: center;
                             word-break: break-word;
+                            background-color: #2c3e50;
+                            color: white;
                         }
                         
-                        .bill-table tbody tr {
+                        table.bill-table tbody tr {
                             page-break-inside: avoid;
                         }
                         
-                        .bill-table tbody td {
-                            border: 1px solid #ddd !important;
-                            padding: 10px !important;
-                            font-size: 11px !important;
+                        table.bill-table tbody td {
+                            border: 1px solid #ddd;
+                            padding: 10px;
+                            font-size: 11px;
                             word-wrap: break-word;
                             word-break: break-word;
                         }
                         
-                        .bill-table tbody tr:nth-child(even) {
+                        table.bill-table tbody tr:nth-child(even) {
                             background-color: #f9f9f9;
                         }
                         
-                        .bill-table tfoot tr {
-                            background-color: #ecf0f1 !important;
-                            font-weight: bold !important;
+                        table.bill-table tfoot tr {
+                            background-color: #ecf0f1;
+                            font-weight: bold;
                         }
                         
-                        .bill-table tfoot td {
-                            border: 1px solid #333 !important;
-                            padding: 12px !important;
-                            font-size: 12px !important;
+                        table.bill-table tfoot td {
+                            border: 1px solid #333;
+                            padding: 12px;
+                            font-size: 12px;
                         }
                         
                         /* Text alignment for amounts */
-                        .text-right { text-align: right !important; }
+                        .text-right { text-align: right; }
                         
                         /* Section Headers */
                         .section-title {
